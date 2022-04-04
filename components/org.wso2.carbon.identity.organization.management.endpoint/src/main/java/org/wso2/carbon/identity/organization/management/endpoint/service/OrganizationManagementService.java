@@ -214,6 +214,9 @@ public class OrganizationManagementService {
         organization.setId(generateUniqueID());
         organization.setName(organizationPOSTRequest.getName());
         organization.setDescription(organizationPOSTRequest.getDescription());
+        OrganizationPOSTRequest.TypeEnum type = organizationPOSTRequest.getType();
+        organization.setType(type != null ? type.toString() : null);
+        organization.setDomain(organizationPOSTRequest.getDomain());
         organization.setStatus(OrganizationManagementConstants.OrganizationStatus.ACTIVE.toString());
         String parentId = organizationPOSTRequest.getParentId();
         if (StringUtils.isNotBlank(parentId)) {
@@ -245,6 +248,15 @@ public class OrganizationManagementService {
 
         organizationResponse.setCreated(organization.getCreated().toString());
         organizationResponse.setLastModified(organization.getLastModified().toString());
+
+        String type = organization.getType();
+        if (StringUtils.equals(type, OrganizationResponse.TypeEnum.TENANT.toString())) {
+            organizationResponse.setType(OrganizationResponse.TypeEnum.TENANT);
+            organizationResponse.setDomain(organization.getDomain());
+        } else {
+            organizationResponse.setType(OrganizationResponse.TypeEnum.STRUCTURAL);
+        }
+
         ParentOrganizationDO parentOrganizationDO = organization.getParent();
         if (parentOrganizationDO != null) {
             organizationResponse.setParent(getParentOrganization(parentOrganizationDO));
@@ -265,6 +277,15 @@ public class OrganizationManagementService {
         organizationResponse.setDescription(organization.getDescription());
         organizationResponse.setCreated(organization.getCreated().toString());
         organizationResponse.setLastModified(organization.getLastModified().toString());
+
+        String type = organization.getType();
+        if (StringUtils.equals(type, GetOrganizationResponse.TypeEnum.TENANT.toString())) {
+            organizationResponse.setType(GetOrganizationResponse.TypeEnum.TENANT);
+            organizationResponse.setDomain(organization.getDomain());
+        } else {
+            organizationResponse.setType(GetOrganizationResponse.TypeEnum.STRUCTURAL);
+        }
+
         String status = organization.getStatus();
         if (StringUtils.equals(status, OrganizationResponse.StatusEnum.ACTIVE.toString())) {
             organizationResponse.setStatus(GetOrganizationResponse.StatusEnum.ACTIVE);
