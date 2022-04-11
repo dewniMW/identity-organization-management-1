@@ -45,6 +45,10 @@ public class OrganizationManagementConstants {
     public static final String VIEW_ATTR_KEY_COLUMN = "UM_ATTRIBUTE_KEY";
     public static final String VIEW_ATTR_VALUE_COLUMN = "UM_ATTRIBUTE_VALUE";
 
+    public static final String SCIM_ROLE_ID_ATTR_NAME = "urn:ietf:params:scim:schemas:core:2.0:id";
+    public static final String PERMISSION_PLACEHOLDER = "PERMISSION_";
+    public static final String INTERNAL = "Internal/";
+
     public static final String PATCH_OP_ADD = "ADD";
     public static final String PATCH_OP_REMOVE = "REMOVE";
     public static final String PATCH_OP_REPLACE = "REPLACE";
@@ -258,7 +262,14 @@ public class OrganizationManagementConstants {
         ERROR_CODE_ERROR_RETRIEVING_ORGANIZATION_STATUS("65025", "Unable to retrieve the status of the organization.",
                 "Server encountered an error while checking the status of the organization with ID: %s."),
         ERROR_CODE_ERROR_ADDING_TENANT_TYPE_ORGANIZATION("65022", "Unable to create the organization.",
-                "Server encountered an error while creating the tenant.");
+                "Server encountered an error while creating the tenant."),
+        ERROR_CODE_ERROR_ADDING_ORGANIZATION_ROLE_MAPPING("65022",
+                "Unable to add forced organization-user-role mappings.",
+                "Server encountered an error while creating user role mappings."),
+        ERROR_CODE_ERROR_RETRIEVING_ROLE_NAMES("65023", "Unable to get role names.",
+                "Server encountered an error while retrieving role names."),
+        ERROR_CODE_ERROR_RETRIEVING_DATA_FROM_IDENTITY_DB("65024", "Unable to retrieve data from Identity Database.",
+                "Server encountered an error while retrieving data from identity database.");
 
         private final String code;
         private final String message;
